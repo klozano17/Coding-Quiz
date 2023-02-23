@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>JavaScript Quiz</title>
-	<link rel="stylesheet" type="text/css" href="./assets/style.css">
-</head>
-<body>
-	<h1>JavaScript Quiz</h1>
-	<div id="quiz-container">
-		<div id="quiz-timer">Time Remaining: <span id="time"></span></div>
-		<div id="quiz-questions">
-			<!-- Quiz questions will be dynamically generated here -->
-		</div>
-		<button id="submit-btn">Submit</button>
-	</div>
-	<script src="./assets/script.js"></script>
-</body>
+  <head>
+    <title>JavaScript Quiz</title>
+    <link rel="stylesheet" href="/assets/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>JavaScript Quiz</h1>
+      <div id="quiz" class="hide">
+        <div id="question"></div>
+        <div id="choices"></div>
+      </div>
+      <div id="start-btn" class="button">Start Quiz</div>
+      <div id="next-btn" class="button hide">Next Question</div>
+      <div id="end" class="hide">
+        <h2>All done!</h2>
+        <p>Your final score is <span id="score"></span>.</p>
+        <form>
+          <div class="form-group">
+            <label for="initials">Enter initials:</label>
+            <input type="text" id="initials" name="initials" required>
+          </div>
+          <button type="submit" id="submit-btn" class="button">Submit</button>
+        </form>
+      </div>
+      <div id="timer"></div>
+    </div>
+    <script src="/assets/script.js"></script>
+  </body>
 </html>

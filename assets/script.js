@@ -1,11 +1,19 @@
-const quizContainer = document.getElementById("quiz-questions");
+const startButton = document.getElementById('start-btn')
+const nextButton = document.getElementById('next-btn')
+const questionContainer = document.getElementById('question-container')
+const questionElement = document.getElementById('questions')
+const answerButtonsElement = document.getElementById('answer-buttons')
+const quizContainer = document.getElementById("quiz");
 const submitButton = document.getElementById("submit-btn");
 const timer = document.getElementById("time");
 const quizTimer = 30; // quiz timer in seconds
 let timeLeft = quizTimer;
+let shuffledQuestions, currentQuestionIndex
+
+
 
 // quiz questions and answers
-const questions = [
+var questions = [
   {
     question: "What is JavaScript?",
     answers: {
