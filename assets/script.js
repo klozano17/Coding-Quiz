@@ -1,16 +1,14 @@
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainer = document.getElementById('question-container')
-const questionElement = document.getElementById('questions')
-const answerButtonsElement = document.getElementById('answer-buttons')
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('choices')
 const quizContainer = document.getElementById("quiz");
 const submitButton = document.getElementById("submit-btn");
-const timer = document.getElementById("time");
+const timer = document.getElementById("timer");
 const quizTimer = 30; // quiz timer in seconds
 let timeLeft = quizTimer;
-let shuffledQuestions, currentQuestionIndex
-
-
+let shuffledQuestions, currentQuestionIndex = 0;
 
 // quiz questions and answers
 var questions = [
@@ -45,48 +43,82 @@ var questions = [
 
 // function to generate quiz questions
 function generateQuiz() {
-    let output = "";
-    questions.forEach((currentQuestion, questionNumber) => {
-      let answers = "";
-      for (letter in currentQuestion.answers) {
-        answers += `
-          <label>
-            <input type="radio" name="question${questionNumber}" value="${letter}">
-            ${letter} : ${currentQuestion.answers[letter]}
-          </label>
-          <br>
-        `;
-      }
-      output += `
-        <div class="question">
-          <h3>${currentQuestion.question}</h3>
-          <div class="answers">
-            ${answers}
-          </div>
-        </div>
+  let output = "";
+  questions.forEach((currentQuestion, questionNumber) => {
+    let answers = "";
+    for (letter in currentQuestion.answers) {
+      answers += `
+        <label>
+          <input type="radio" name="question${questionNumber}" value="${letter}">
+          ${letter} : ${currentQuestion.answers[letter]}
+        </label>
+        <br>
       `;
-    });
-    quizContainer.innerHTML = output;
-  }
-  
-  // function to handle timer
+    }
+    output += `
+      <div class="question">
+        <h3>${currentQuestion.question}</h3>
+        <div class="answers">
+          ${answers}
+        </div>
+      </div>
+    `;
+  });
+  quizContainer.innerHTML = output;
+}
+
+// function to handle timer
 function startTimer() {
-    let countdown = setInterval(() => {
-      timeLeft--;
-      timer.textContent = timeLeft;
-  
-      if (timeLeft <= 0) {
-        clearInterval(countdown);
-        submitQuiz();
-      }
-    }, 1000);
+  let countdown = setInterval(() => {
+    timeLeft--;
+    timer.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      submitQuiz();
+    }
+  }, 1000);
+}
+
+// function to submit quiz
+function submitQuiz() {
+  // add code to check answers and calculate score
+  // display score or feedback to user
+}
+
+generateQuiz();
+
+startButton.addEventListener('click', function() {
+  startButton.classList.add('hide');
+  shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  currentQuestionIndex = 0;
+  questionContainer.classList.remove('hide');
+  showNextQuestion();
+});
+
+nextButton.addEventListener('click', function() {
+  currentQuestionIndex++;
+  showNextQuestion();
+});
+
+function showNextQuestion() {
+  resetState();
+  showQuestion(shuffledQuestions[currentQuestionIndex]);
+}
+
+function showQuestion(question) {
+  questionElement.innerText = question.question;
+  for (letter in question.answers) {
+    const button = document.createElement('button');
+    button.innerText = `${letter} : ${question.answers[letter]}`;
+    button.classList.add('button');
+    if (letter === question.correctAnswer) {
+      button.dataset.correct = true;
+    }
+    button.addEventListener('click', selectAnswer);
+    answerButtonsElement.appendChild(button);
   }
-  
-  // function to submit quiz
-  function submitQuiz() {
-    // add code to check answers and calculate score
-    // display score or feedback to user
-  }
-  
-  generateQuiz();
-  startTimer();
+}
+
+function resetState() {
+  nextButton.classList
