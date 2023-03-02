@@ -9,7 +9,9 @@ N/A
 ## Usage
 This is for basic use to do a quick knowledge test on  JS.
 
-![alt text](assets/images/quiz_screenshot.png)
+![coding quiz](assets/images/quiz_screenshot.png)
+
+https://klozano17.github.io/Coding-Quiz/
 
 ## Credits
 W3 schools
